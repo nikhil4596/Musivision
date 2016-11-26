@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<?php
+  //set headers to NOT cache a page
+  header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
+  header("Pragma: no-cache"); //HTTP 1.0
+  header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+ ?>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <title>WebcamJS Test Page - Large Capture</title>
+    <style type="text/css">
+        #my_camera {display : inline-block; margin: 20px }
+        #results { float:right; margin:20px; padding:20px; border:1px solid; }
+
+    </style>
+<body>
+<script src="js/jquery-3.1.1.js"></script>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="http://e-cdn-files.deezer.com/js/min/dz.js"></script>
+<script type="text/javascript" src="webcam.js"></script>
+
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapse" data-toggle="collapse" data-target="#main_navbar" aria-expanded="false">Open</button>
+        </div>
+        <div class="collapse navbar-collapse" id="main_navbar">
+            <ul class="nav navbar-nav">
+                <li> <a href="index.html">Home</a></li>
+                <li class="active"> <a href="try.html">Take a Snap!</a></li>
+                <!--<li> <a href="photos.html">Photos</a></li>-->
+                <!--<li> <a href="music.html">Music</a></li>-->
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container"><h1>WebcamJS Test Page</h1>
+<!--<h3>Demonstrates simple 320x240 capture &amp; display</h3></div>-->
+
+<div class="container" align="center" width="50px"></div><div id="my_camera"></div>
+<!-- Configure a few settings and attach camera -->
+<script language="JavaScript">
+    Webcam.set({
+        width: 320,
+        height: 240,
+        dest_width: 640,
+        dest_height: 480,
+        image_format: 'jpeg',
+        jpeg_quality: 90
+    });
+    Webcam.attach( '#my_camera' );
+</script>
+<!-- A button for taking snaps -->
+    <div class="container">
+    <input type=button class="btn-default" value="Take a Snapshot" onClick="take_snapshot()">
+    </div>
+<div id="results">Your captured image will appear here...</div>
+
+<!-- Code to handle taking the snapshot and displaying it locally -->
+<script language="JavaScript">
+    function take_snapshot() {
+        // take snapshot and get image data
+        Webcam.snap( function(data_uri) {
+            // display results in page
+            console.log(data_uri);
+            document.getElementById('results').innerHTML =
+                    '<h2>Here is your large image:</h2>' +
+                    '<img src="'+data_uri+'"/>';
+        } );
+    }
+</script>
+
+</body>
+</html>
