@@ -2,33 +2,22 @@
  * Created by nikhil on 11/27/2016.
  */
 
-
-//apiKey: Replace this with your own Project Oxford Emotion API key, please do not use my key. I include it here so you can get up and running quickly but you can get your own key for free at https://www.projectoxford.ai/emotion
+var imageBlob;
+function take_snapshot() {
+    Webcam.snap( function(data_uri) {
+        imageBlob = dataURItoBlob(data_uri);
+    } );
+    var file = new File([imageBlob], "image.jpg", {type: "image/jpeg"});
+    CallAPI(file, apiUrl, apiKey);
+}
 var apiKey = "69a5530db1b14159ac3aef6dd53e43af";
-
-var fd = new FormData(document.forms[0]);
-var file = new File([imageBlob], "image.jpg", {type: "image/jpeg", webkitRelativePath: "/image.jpg"});
-fd.append("canvasImage", file);
-// fd.append('username', 'Chris');
-
-//apiUrl: The base URL for the API. Find out what this is for other APIs via the API documentation
 var apiUrl = "https://api.projectoxford.ai/emotion/v1.0/recognize";
 
 
-function tryShit() {
-    console.log(imageBlob);
-
-    console.log(file);
-    saveAs(imageBlob,"Image.jpg");
-}
-$('#btn').click(function () {
-    //file: The file that will be sent to the api
-    var file2 = document.getElementById('filename').files[0];
-    var file1 = fd.get('canvasImage');
-    console.log(file2);
-    console.log(file1);
-    CallAPI(file1, apiUrl, apiKey);
-});
+// $('#btn').click(function () {
+//     var file = new File([imageBlob], "image.jpg", {type: "image/jpeg"});
+//     CallAPI(file, apiUrl, apiKey);
+// });
 
 function CallAPI(file, apiUrl, apiKey)
 {
@@ -40,7 +29,8 @@ function CallAPI(file, apiUrl, apiKey)
         },
         type: "POST",
         data: file,
-        processData: false
+        processData: false,
+
     })
         .done(function (response) {
             ProcessResult(response);
@@ -52,6 +42,19 @@ function CallAPI(file, apiUrl, apiKey)
 
 function ProcessResult(response)
 {
-    var data = JSON.stringify(response);
-    $("#response").text(data);
+    var data = response[0].scores;
+    var arr = [];
+    for (var emo in data) {
+        arr.push([emo, data[emo]]);
+    }
+    console.log(arr);
+
+    arr.sort(function (a,b) {
+        return b[1] - a[1]
+    });
+    var datarr = [arr[0], arr[1], arr[2]];
+    console.log(datarr);
+    document.getElementById("main").innerHTML = "<h1>Okay! I know how you feel now! </h1> <br><br>" +
+        "";
 }
+
