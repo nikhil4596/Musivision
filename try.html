@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<?php
-  //set headers to NOT cache a page
-  header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
-  header("Pragma: no-cache"); //HTTP 1.0
-  header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
- ?>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -21,6 +15,10 @@
 <script src="js/bootstrap.js"></script>
 <script src="http://e-cdn-files.deezer.com/js/min/dz.js"></script>
 <script type="text/javascript" src="webcam.js"></script>
+<script src="js/imageProcessing.js"></script>
+<script src="js/FileSaver.js"></script>
+
+
 
 
 
@@ -41,41 +39,56 @@
 </nav>
 
 
-<div class="container"><h1>WebcamJS Test Page</h1>
+<div class="container"><h1>WebcamJS Test Page</h1></div>
 <!--<h3>Demonstrates simple 320x240 capture &amp; display</h3></div>-->
 
-<div class="container" align="center" width="50px"></div><div id="my_camera"></div>
-<!-- Configure a few settings and attach camera -->
-<script language="JavaScript">
-    Webcam.set({
-        width: 320,
-        height: 240,
-        dest_width: 640,
-        dest_height: 480,
-        image_format: 'jpeg',
-        jpeg_quality: 90
-    });
-    Webcam.attach( '#my_camera' );
-</script>
-<!-- A button for taking snaps -->
+<div class="container">
+    <div id="my_camera"></div>
+    <!-- Configure a few settings and attach camera -->
+    <script language="JavaScript">
+        Webcam.set({
+            width: 320,
+            height: 240,
+            dest_width: 640,
+            dest_height: 480,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+        });
+        Webcam.attach( '#my_camera' );
+    </script>
     <div class="container">
     <input type=button class="btn-default" value="Take a Snapshot" onClick="take_snapshot()">
     </div>
-<div id="results">Your captured image will appear here...</div>
+    <div id="results" style="float: right">Your captured image will appear here...</div>
+</div>
 
 <!-- Code to handle taking the snapshot and displaying it locally -->
 <script language="JavaScript">
+    var imageBlob;
     function take_snapshot() {
         // take snapshot and get image data
         Webcam.snap( function(data_uri) {
             // display results in page
-            console.log(data_uri);
+            imageBlob = dataURItoBlob(data_uri);
+//            console.log(imageBlob);
+
             document.getElementById('results').innerHTML =
                     '<h2>Here is your large image:</h2>' +
                     '<img src="'+data_uri+'"/>';
         } );
     }
 </script>
+<script src="js/emotionRecognition.js"></script>
+<br>
+<br>
+<br>
+<p>This example shows how to post an image to the Project Oxford Emotion API using a binary file</p>
+
+<form><input type="file" id="filename" name="filename"></form>
+<button id="btn">Click here</button>
+<p id="response"></p>
+<script src="js/emotionRecognition.js"></script>
+<button class="btn-default" onclick="tryShit()">TrySHit</button>
 
 </body>
 </html>
