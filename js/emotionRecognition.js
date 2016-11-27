@@ -40,8 +40,7 @@ function CallAPI(file, apiUrl, apiKey)
         });
 }
 
-function ProcessResult(response)
-{
+function ProcessResult(response) {
     var data = response[0].scores;
     var arr = [];
     for (var emo in data) {
@@ -49,12 +48,44 @@ function ProcessResult(response)
     }
     console.log(arr);
 
-    arr.sort(function (a,b) {
+    arr.sort(function (a, b) {
         return b[1] - a[1]
     });
     var datarr = [arr[0], arr[1], arr[2]];
     console.log(datarr);
     document.getElementById("main").innerHTML = "<h1>Okay! I know how you feel now! </h1> <br><br>" +
-        "";
+        "<h2>Now, Do you want to listen something to stay in this mood? Or do you no longer want to be in this mood?</h2>" +
+        "<button class='btn-lg' style='float: left; text-decoration-color: #0c0d0e' id='stay'>Stay!</button> <button class='btn-lg' " +
+        "style='float: right; text-decoration-color: #0c0d0e' id='noMore'>Not Anymore!</button>";
+    $("#stay").click(whichGenre(datarr[0][0], true));
+    $("#noMore").click(whichGenre(datarr[0][0], false));
 }
+// function theEnd() {
+//     window.location = "http://localhost/musivision/play.html";
+// }
+function whichGenre(mood, option) {
+
+    if (mood == 'anger' && option == true || mood == 'happiness' && option == false) {
+        genreFinal = ['Rock'];
+    }
+    else if (mood == 'happiness' && option == true || mood == 'anger' && option == false) {
+        genreFinal = ['Dance'];
+    }
+    else if (mood == 'neutral' && option == true || mood == 'sadness' && option == false) {
+        genreFinal = ['Pop'];
+    }
+    else if (mood == 'surprise' && option == true || mood == 'contempt' && option == false) {
+        genreFinal = ['Indian'];
+    }
+    else if (mood == 'contempt' && option == true || mood == 'fear' && option == false) {
+        genreFinal = ['Classical'];
+    }
+    else {
+        genreFinal = ['Rap'];
+    }
+    getGenreRadioId(genreFinal[0]);
+}
+
+// window.onload = theEnd;
+
 
