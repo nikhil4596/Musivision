@@ -53,7 +53,7 @@ function ProcessResult(response) {
     });
     var datarr = [arr[0], arr[1], arr[2]];
     console.log(datarr);
-    document.getElementById("main").innerHTML = "<h1>Okay! I know how you feel now! </h1> <br><br>" +
+    document.getElementById("main").innerHTML = "<h1>Okay! I know how you feel now! Some " + datarr[0][0] + "?" + "</h1> <br><br>" +
         "<h2>Now, Do you want to listen something to stay in this mood? Or do you no longer want to be in this mood?</h2>" +
         "<button class='btn-lg' style='float: left; text-decoration-color: #0c0d0e' id='stay'>Stay!</button> <button class='btn-lg' " +
         "style='float: right; text-decoration-color: #0c0d0e' id='noMore'>Not Anymore!</button>";
