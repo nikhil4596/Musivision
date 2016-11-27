@@ -17,7 +17,6 @@
 <script type="text/javascript" src="webcam.js"></script>
 <script src="js/imageProcessing.js"></script>
 <script src="js/FileSaver.js"></script>
-<script src="js/app.js"></script>
 
 
 
@@ -64,23 +63,7 @@
     </div>
     <!--<div id="results" style="float: right">Your captured image will appear here...</div>-->
 </div>
-
-<!-- Code to handle taking the snapshot and displaying it locally -->
-<!--<script language="JavaScript">-->
-<!--//    var imageBlob;-->
-<!--//    function take_snapshot() {-->
-<!--//        // take snapshot and get image data-->
-<!--//        Webcam.snap( function(data_uri) {-->
-<!--//            // display results in page-->
-<!--//            imageBlob = dataURItoBlob(data_uri);-->
-<!--////            console.log(imageBlob);-->
-<!--//-->
-<!--////            document.getElementById('results').innerHTML =-->
-<!--////                    '<h2>Here is your large image:</h2>' +-->
-<!--////                    '<img src="'+data_uri+'"/>';-->
-<!--//        } );-->
-<!--//    }-->
-<!--</script>-->
+<button id = "end" onclick="window.location='http://localhost/musivision/play.html'">Finally Play!</button>
 <script src="js/emotionRecognition.js"></script>
 
 </body>

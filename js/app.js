@@ -66,6 +66,23 @@ function getGenreRadioId(str) {
     // alert(genreId);
     radioId = "";
     // DZ.api('/track/62724017', function(response){
+    DZ.api("/genre/" + genreId + "/radios", function (response) {
+        radioId = response.data[0].id;
+        // alert(songId);
+        console.log("The response is ", response.data[0].id);
+        // console.log("The response is ", response.data[0].title);
+        loadSongs(radioId);
+
+    });
+}
+
+function getGenreRadioIdFromSearch(str) {
+    var radioId;
+    var query1 = document.getElementById(str).value;
+    var genreId = genres[query1];
+    // alert(genreId);
+    radioId = "";
+    // DZ.api('/track/62724017', function(response){
     DZ.api("/genre/" + genreId + "/radios", function(response){
         radioId = response.data[0].id;
         // alert(songId);
@@ -74,22 +91,6 @@ function getGenreRadioId(str) {
         loadSongs(radioId);
 
     });
-
-// function getGenreRadioId(str) {
-//     var radioId;
-//     var query1 = document.getElementById(str).value;
-//     var genreId = genres[query1];
-//     // alert(genreId);
-//     radioId = "";
-//     // DZ.api('/track/62724017', function(response){
-//     DZ.api("/genre/" + genreId + "/radios", function(response){
-//         radioId = response.data[0].id;
-//         // alert(songId);
-//         console.log("The response is ", response.data[0].id);
-//         // console.log("The response is ", response.data[0].title);
-//         loadSongs(radioId);
-//
-//     });
     // alert(radioId);
 }
 // function getSongID(id) {
@@ -130,4 +131,6 @@ DZ.init({
         }
     }
 });
+
+window.onload = getGenreRadioId(genreFinal[0]);
 

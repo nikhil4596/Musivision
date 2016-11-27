@@ -83,7 +83,8 @@ function whichGenre(mood, option) {
     else {
         genreFinal = ['Rap'];
     }
-    getGenreRadioId(genreFinal[0]);
+    // document.getElementById("main").innerHTML ="<button class='btn-default' onclick='window.location=/'http://localhost/musivision/play.html/'>Prepare Some good tracks for you!</button>";
+    // getGenreRadioId(genreFinal[0])
 }
 
 // window.onload = theEnd;
